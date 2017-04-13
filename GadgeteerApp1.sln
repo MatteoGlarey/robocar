@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GadgeteerApp1", "GadgeteerApp1\GadgeteerApp1.csproj", "{EB6CE29C-6677-4B9A-A9D5-EECE897FBF42}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3EE83F5E-D3DF-4DB0-A289-7EDF9AD482A9}"
+	ProjectSection(SolutionItems) = preProject
+		MyDataGrid.cs = MyDataGrid.cs
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyboardInput", "ConsoleApplication3\KeyboardInput.csproj", "{0ED66BF3-1556-4309-B240-7B67F0EDEF63}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EB6CE29C-6677-4B9A-A9D5-EECE897FBF42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB6CE29C-6677-4B9A-A9D5-EECE897FBF42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB6CE29C-6677-4B9A-A9D5-EECE897FBF42}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{EB6CE29C-6677-4B9A-A9D5-EECE897FBF42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB6CE29C-6677-4B9A-A9D5-EECE897FBF42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB6CE29C-6677-4B9A-A9D5-EECE897FBF42}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{0ED66BF3-1556-4309-B240-7B67F0EDEF63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0ED66BF3-1556-4309-B240-7B67F0EDEF63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0ED66BF3-1556-4309-B240-7B67F0EDEF63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0ED66BF3-1556-4309-B240-7B67F0EDEF63}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
