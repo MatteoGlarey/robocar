@@ -7,7 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GadgeteerApp1", "GadgeteerA
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3EE83F5E-D3DF-4DB0-A289-7EDF9AD482A9}"
 	ProjectSection(SolutionItems) = preProject
+		GadgeteerApp1\DataReceivedEventArgs.cs = GadgeteerApp1\DataReceivedEventArgs.cs
 		MyDataGrid.cs = MyDataGrid.cs
+		GadgeteerApp1\Server.cs = GadgeteerApp1\Server.cs
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyboardInput", "ConsoleApplication3\KeyboardInput.csproj", "{0ED66BF3-1556-4309-B240-7B67F0EDEF63}"

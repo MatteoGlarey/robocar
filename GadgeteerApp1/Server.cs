@@ -10,7 +10,7 @@ namespace GadgeteerApp1
 {
     public delegate void DataReceivedEventHandler(object sender, DataReceivedEventArgs e);
 
-    public class Server
+    public class MyServer : Server
     {
         public const int DEFAULT_SERVER_PORT = 8080;
         private Socket socket;
@@ -18,11 +18,11 @@ namespace GadgeteerApp1
 
         public event DataReceivedEventHandler DataReceived;
 
-        public Server()
+        public MyServer()
             : this(DEFAULT_SERVER_PORT)
         { }
 
-        public Server(int port)
+        public MyServer(int port)
         {
             this.port = port;
             socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -54,6 +54,14 @@ namespace GadgeteerApp1
         {
             if (DataReceived != null)
                 DataReceived(this, e);
+        }
+        public static string BytesToString(byte[] bytes)
+        {
+            string str = string.Empty;
+            for (int i = 0; i < bytes.Length; ++i)
+                str += (char)bytes[i];
+
+            return str;
         }
 
         private class ProcessClientRequest
@@ -94,7 +102,7 @@ namespace GadgeteerApp1
                                 byte[] buffer = new byte[clientSocket.Available];
                                 int bytesRead = clientSocket.Receive(buffer, clientSocket.Available,
                                                                              SocketFlags.None);
-
+                                Debug.Print(buffer.ToString());
                                 byte[] data = new byte[bytesRead];
                                 buffer.CopyTo(data, 0);
 
