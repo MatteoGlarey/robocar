@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GadgeteerApp1", "GadgeteerApp1\GadgeteerApp1.csproj", "{EB6CE29C-6677-4B9A-A9D5-EECE897FBF42}"
 EndProject
@@ -12,7 +12,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Resources.cs = Resources.cs
 		RESTService.cs = RESTService.cs
 		Server.cs = Server.cs
-		TextFile1.txt = TextFile1.txt
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebServerREST", "WebServerREST\WebServerREST.csproj", "{834F932B-BD81-4009-B224-0BF511237C15}"
