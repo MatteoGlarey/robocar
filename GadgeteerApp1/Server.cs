@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -10,7 +10,7 @@ namespace GadgeteerApp1
 {
     public delegate void DataReceivedEventHandler(object sender, DataReceivedEventArgs e);
 
-    public class MyServer : Server
+    public class Server
     {
         public const int DEFAULT_SERVER_PORT = 8080;
         private Socket socket;
@@ -18,11 +18,12 @@ namespace GadgeteerApp1
 
         public event DataReceivedEventHandler DataReceived;
 
-        public MyServer()
+
+        public Server()
             : this(DEFAULT_SERVER_PORT)
         { }
 
-        public MyServer(int port)
+        public Server(int port)
         {
             this.port = port;
             socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -33,6 +34,7 @@ namespace GadgeteerApp1
             IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Any, port);
             socket.Bind(localEndPoint);
             socket.Listen(Int32.MaxValue);
+            Debug.Print("Server Listening");
 
             new Thread(StartServerInternal).Start();
         }
@@ -43,7 +45,7 @@ namespace GadgeteerApp1
             {
                 // Wait for a request from a client.
                 Socket clientSocket = socket.Accept();
-
+                Debug.Print("Client Accepted");
                 // Process the client request.
                 var request = new ProcessClientRequest(this, clientSocket);
                 request.Process();
@@ -98,7 +100,6 @@ namespace GadgeteerApp1
                                 // or terminated.
                                 if (clientSocket.Available == 0)
                                     break;
-
                                 byte[] buffer = new byte[clientSocket.Available];
                                 int bytesRead = clientSocket.Receive(buffer, clientSocket.Available,
                                                                              SocketFlags.None);

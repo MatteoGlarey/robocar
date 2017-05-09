@@ -34,6 +34,7 @@ namespace GadgeteerApp1
             IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Any, port);
             socket.Bind(localEndPoint);
             socket.Listen(Int32.MaxValue);
+            Debug.Print("Server Listening");
 
             new Thread(StartServerInternal).Start();
         }
@@ -44,7 +45,7 @@ namespace GadgeteerApp1
             {
                 // Wait for a request from a client.
                 Socket clientSocket = socket.Accept();
-
+                Debug.Print("Client Accepted");
                 // Process the client request.
                 var request = new ProcessClientRequest(this, clientSocket);
                 request.Process();
@@ -99,7 +100,6 @@ namespace GadgeteerApp1
                                 // or terminated.
                                 if (clientSocket.Available == 0)
                                     break;
-
                                 byte[] buffer = new byte[clientSocket.Available];
                                 int bytesRead = clientSocket.Receive(buffer, clientSocket.Available,
                                                                              SocketFlags.None);
