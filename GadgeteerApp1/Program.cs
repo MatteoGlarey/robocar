@@ -22,10 +22,11 @@ namespace GadgeteerApp1
 {
     public partial class Program
     {
-        private Server movementserver;
-        private SocketClient movementClient;
+        //private Server movementserver;
+        //private SocketClient movementClient;
         private Status newStatus, currentStatus;
         GT.Timer timer;
+        GT.Timer wifi;
         // This method is run when the mainboard is powered up or reset.   
         void ProgramStarted()
         {
@@ -41,22 +42,28 @@ namespace GadgeteerApp1
             camera2.CameraConnected += Camera2_CameraConnected;
             camera2.PictureCaptured += camera_Stream;
             Debug.Print("Program Started");
-            init_Wifi();
-
+            
             timer = new GT.Timer(500);
-            // GT.Timer motor = new GT.Timer(200);
+            wifi = new GT.Timer(1000);
             timer.Tick += TakePhoto;
             //timer.Tick += CheckPosition;
             timer.Tick += SendCommand;
+            wifi.Tick += Wifi_Tick;
             //displayTE35.BacklightEnabled = true;
             multicolorLED.TurnWhite();
             multicolorLED2.TurnWhite();
             timer.Start();
+
+            wifiRS21.NetworkInterface.Open();
             //motor.Start();
             //displayTE35.SimpleGraphics.DisplayText("Hello World", font, Gadgeteer.Color.Orange, 50, 50);
-            
+
         }
 
+        private void Wifi_Tick(GT.Timer timer)
+        {
+            init_Wifi();
+        }
         private void SendCommand(GT.Timer timer)
         {
             Move(joystick);
@@ -65,7 +72,7 @@ namespace GadgeteerApp1
         private void Movementserver_DataReceived(object sender, DataReceivedEventArgs e)
         {
             string command = Server.BytesToString(e.Data);
-            this.CheckCommand(command);
+            CheckCommand(command);
         }
         private enum Status
         {
@@ -262,6 +269,7 @@ namespace GadgeteerApp1
         private static void NetworkChange_NetworkAddressChanged(object sender, Microsoft.SPOT.EventArgs e)
         {
             Debug.Print("Network address changed");
+            
         }
 
         private static void NetworkChange_NetworkAvailabilityChanged(object sender, NetworkAvailabilityEventArgs e)
@@ -326,11 +334,9 @@ namespace GadgeteerApp1
 
             //GHI.Networking.WiFiRS9110.NetworkParameters network = new GHI.Networking.WiFiRS9110.NetworkParameters(); 
             //*/
-            string IpAddress = "169.254.130.8";
-            string gateway = "169.254.130.7";
+            string IpAddress = "192.168.137.2";
+            string gateway = "192.168.137.1";
             GHI.Networking.WiFiRS9110.NetworkParameters[] info = null;
-            
-            wifiRS21.NetworkInterface.Open();
 
             wifiRS21.NetworkInterface.EnableStaticIP(IpAddress, "255.255.255.0", gateway);
             info = wifiRS21.NetworkInterface.Scan("Fez");
@@ -338,15 +344,17 @@ namespace GadgeteerApp1
             if (info!= null)
             {
                 Debug.Print(info[0].ToString());
-                wifiRS21.NetworkInterface.Join("Fez");
+                wifiRS21.NetworkInterface.Join("Fez","12345678");
+                
             }
-           // Debug.Print
+            // Debug.Print
         }
 
         private void TakePhoto(GT.Timer timer)
         {
             if (camera2.CameraReady)
                 camera2.TakePicture();
+           
         }
 
         private void Camera2_CameraConnected(Camera sender, EventArgs e)
@@ -366,17 +374,28 @@ namespace GadgeteerApp1
 
         void camera_Stream(Camera sender, Gadgeteer.Picture picture)
         {
-          //  displayTE35.SimpleGraphics.DisplayImage(picture, 80, 60);
+            picture.MakeBitmap();
+            //String cmd;
+            //  displayTE35.SimpleGraphics.DisplayImage(picture, 80, 60);
+            //cmd = LineFollower.correction(picture);
         }
 
         void wifiNetworkDown(GTM.Module.NetworkModule sender, GTM.Module.NetworkModule.NetworkState state)
         {
             Debug.Print("Network is down");
+            wifi.Start();
+            multicolorLED.BlinkRepeatedly(GT.Color.Red);
+            multicolorLED2.BlinkRepeatedly(GT.Color.Red);
+            // stop all motors
+
         }
 
         void wifiNetworkUp(GTM.Module.NetworkModule sender, GTM.Module.NetworkModule.NetworkState state)
         {
             Debug.Print("Network is up");
+            wifi.Stop();
+            multicolorLED.TurnWhite();
+            multicolorLED2.TurnWhite();
             //movementserver.Start();
             //movementClient.Connect("172.16.0.102",8080);
             Debug.Print("IP Address: " + wifiRS21.NetworkSettings.IPAddress.ToString());
